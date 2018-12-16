@@ -16,9 +16,15 @@ import ToDo from './components/ToDo.js';
      };
    }
 
+   handleChange(e) {
+        this.setState({ newTodoDescription: e.target.value })
+   }
+
    handleSubmit(e) {
      e.preventDefault();
-     console.log("handleSubmit called");
+     if (!this.state.newTodoDescription) { return }
+     const newTodo = { description: this.state.newTodoDescription, isCompleted: false };
+     this.setState({ todos: [...this.state.todos, newTodo], newTodoDescription: '' });
    }
 
    toggleComplete(index) {
@@ -27,6 +33,8 @@ import ToDo from './components/ToDo.js';
     todo.isCompleted = todo.isCompleted ? false : true;
     this.setState({ todos: todos });
   }
+
+
 
 
    render() {
@@ -41,6 +49,7 @@ import ToDo from './components/ToDo.js';
           <input type="text" value={ this.state.newTodoDescription } onChange= { (e) => this.handleChange(e) } />
           <input type="submit" />
         </form>
+
        </div>
      );
    }
