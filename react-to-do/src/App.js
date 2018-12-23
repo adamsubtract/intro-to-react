@@ -37,16 +37,10 @@ import ToDo from './components/ToDo.js';
 //method that deletes a ToDo
   deleteTodo(index) {
     const arrCopy = this.state.todos.splice();
-    const currentIndex = arrCopy[index];
 
-    var filteredArr = arrCopy.filtered( val, index, arr => {
+    var filteredArr = arrCopy.filter((todo, i) => { return i !== index });
 
-    if (index != currentIndex)
-    return index
-
-  }
-
-    this.setState({ filteredArr: todos});
+   this.setState({ todos: filteredArr });
 
   }
 
@@ -56,11 +50,23 @@ import ToDo from './components/ToDo.js';
        <div className="App">
         <ul>
         { this.state.todos.map( (todo, index) =>
-         <ToDo key={ index } description={ todo.description } isCompleted={ todo.isCompleted} toggleComplete={ () => this.toggleComplete(index) } deleteTodo={ this.deleteTodo(index) }  />
+         <ToDo
+         key={ index }
+         description={ todo.description }
+         isCompleted={ todo.isCompleted}
+         toggleComplete={ () => this.toggleComplete(index) }
+         deleteTodo={ this.deleteTodo(index) }
+         />
        )}
         </ul>
         <form onSubmit={ (e) => this.handleSubmit(e) }>
-          <input type="text" value={ this.state.newTodoDescription } onChange= { (e) => this.handleChange(e) } />
+
+          <input
+          type="text"
+          value={ this.state.newTodoDescription }
+          onChange= { (e) => this.handleChange(e) }
+          />
+
           <input type="submit" />
         </form>
 
