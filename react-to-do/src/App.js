@@ -36,12 +36,10 @@ import ToDo from './components/ToDo.js';
 
 //method that deletes a ToDo
   deleteTodo(index) {
-    const arrCopy = this.state.todos.splice();
+    const arrCopy = this.state.todos.slice();
+    const filteredArr = arrCopy.filter((todo, i) => i !== index);
 
-    var filteredArr = arrCopy.filter((todo, i) => { return i !== index });
-
-   this.setState({ todos: filteredArr });
-
+    this.setState({ todos: filteredArr});
   }
 
 
@@ -51,11 +49,11 @@ import ToDo from './components/ToDo.js';
         <ul>
         { this.state.todos.map( (todo, index) =>
          <ToDo
-         key={ index }
-         description={ todo.description }
-         isCompleted={ todo.isCompleted}
-         toggleComplete={ () => this.toggleComplete(index) }
-         deleteTodo={ this.deleteTodo(index) }
+              key={ index }
+              description={ todo.description }
+              isCompleted={ todo.isCompleted}
+              toggleComplete={ () => this.toggleComplete(index) }
+              deleteTodo={ () => this.deleteTodo(index) }
          />
        )}
         </ul>
